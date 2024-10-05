@@ -27,6 +27,11 @@ logger.addHandler(stream_handler)
 
 
 def _handle_exception(e):
+    # print(f"status code: {e.status_code}")
+    # print(f"error code: {e.error_code}")
+    # print(f"error message: {e.error_message}")
+    # print(f"header: {e.header}")
+    # print(f"error data: {e.error_data}")
     logger.error(f"({stack()[1].function}) {e.__class__.__name__}: {e}")
     return None
 
