@@ -106,3 +106,38 @@ class BinanceLight:
             return order
         except Exception as e:
             return _handle_exception(e)
+
+    def get_exchange_info(self, symbol: str):
+        try:
+            exchange_info = self.public.exchange_info(symbol=symbol)
+            return exchange_info
+        except Exception as e:
+            return _handle_exception(e)
+
+    def get_rate_order_limit(self):
+        try:
+            rate_limit = self.private.get_order_rate_limit()
+            return rate_limit
+        except Exception as e:
+            return _handle_exception(e)
+
+    def get_new_listen_key(self):
+        try:
+            listen_key = self.private.new_listen_key()
+            return listen_key
+        except Exception as e:
+            return _handle_exception(e)
+
+    def renew_listen_key(self, listen_key: str):
+        try:
+            listen_key = self.private.renew_listen_key(listen_key)
+            return listen_key
+        except Exception as e:
+            return _handle_exception(e)
+
+    def get_klines(self, symbol: str, interval: str, limit: int):
+        try:
+            klines = self.public.klines(symbol=symbol, interval=interval, limit=limit)
+            return klines
+        except Exception as e:
+            return _handle_exception(e)
