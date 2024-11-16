@@ -57,7 +57,6 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-
     def get_balances(self):
         try:
             account = self.private.account(omitZeroBalances="true")
