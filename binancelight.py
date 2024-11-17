@@ -2,7 +2,7 @@ from binance.spot import Spot
 from inspect import stack
 from logger import Logger
 
-logger = Logger("binance-light")
+logger = Logger("binancelight")
 
 
 def _handle_exception(e):
