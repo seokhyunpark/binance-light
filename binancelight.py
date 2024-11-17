@@ -44,6 +44,16 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
+    def get_balance(self, asset: str):
+        try:
+            balances = self.get_balances()
+            for balance in balances:
+                if balance['asset'] == asset:
+                    return float(balance['free'])
+            return 0
+        except Exception as e:
+            return _handle_exception(e)
+
     def buy_limit_maker(self, symbol: str, quantity: float, price: float):
         try:
             buy = self.private.new_order(
