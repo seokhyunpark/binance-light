@@ -90,6 +90,13 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
+    def get_open_orders(self, symbol: str):
+        try:
+            orders = self.private.get_open_orders(symbol=symbol)
+            return orders
+        except Exception as e:
+            return _handle_exception(e)
+
     def cancel_order(self, symbol: str, order_id: int):
         try:
             order = self.private.cancel_order(
