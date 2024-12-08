@@ -106,8 +106,12 @@ class BinanceLight:
 
     def get_exchange_info(self, symbol):
         try:
-            exchange_info = self.public.exchange_info(symbol=symbol)
-            return exchange_info
+            if isinstance(symbol, str):
+                exchange_info = self.public.exchange_info(symbol=symbol)
+                return exchange_info
+            elif isinstance(symbol, list):
+                exchange_info = self.public.exchange_info(symbols=symbol)
+                return exchange_info
         except Exception as e:
             return _handle_exception(e)
 
