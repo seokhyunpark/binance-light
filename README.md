@@ -18,14 +18,14 @@ api_secret = "YOUR_API_SECRET"
 
 client = binancelight.BinanceLight(api_key, api_secret)
 
-price = client.get_ticker_price("BTCUSDT")
+price = client.ticker_price("BTCUSDT")
 print(price)
 
-orderbook = client.get_orderbook("BTCUSDT")
+orderbook = client.depth("BTCUSDT")
 print(orderbook['bids'])
 print(orderbook['asks'])
 
-balances = client.get_balances()
+balances = client.account()
 print(balances)
 
 buy = client.buy_limit_maker(symbol="BTCUSDT", quantity=1, price=60000)

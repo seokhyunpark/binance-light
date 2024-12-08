@@ -20,7 +20,7 @@ class BinanceLight:
         self.private = Spot(api_key, api_secret)
         self.public = Spot()
 
-    def get_ticker_price(self, symbol):
+    def ticker_price(self, symbol):
         try:
             ticker_price = self.public.ticker_price(symbol=symbol)
             price = float(ticker_price['price'])
@@ -28,7 +28,7 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def get_orderbook(self, symbol, limit):
+    def depth(self, symbol, limit):
         try:
             depth = self.public.depth(symbol=symbol, limit=limit)
             orderbook = {'bids': depth['bids'], 'asks': depth['asks']}
@@ -36,7 +36,7 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def get_balances(self):
+    def account(self):
         try:
             account = self.private.account(omitZeroBalances="true")
             balances = account['balances']
@@ -104,7 +104,7 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def get_exchange_info(self, symbol):
+    def exchange_info(self, symbol):
         try:
             if isinstance(symbol, str):
                 exchange_info = self.public.exchange_info(symbol=symbol)
@@ -115,14 +115,14 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def get_rate_order_limit(self):
+    def get_order_rate_limit(self):
         try:
             rate_limit = self.private.get_order_rate_limit()
             return rate_limit
         except Exception as e:
             return _handle_exception(e)
 
-    def get_new_listen_key(self):
+    def new_listen_key(self):
         try:
             listen_key = self.private.new_listen_key()
             return listen_key
@@ -136,7 +136,7 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def get_klines(self, symbol, interval, limit):
+    def klines(self, symbol, interval, limit):
         try:
             klines = self.public.klines(symbol=symbol, interval=interval, limit=limit)
             return klines
