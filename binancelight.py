@@ -131,3 +131,12 @@ class BinanceLight:
             return klines
         except Exception as e:
             return _handle_exception(e)
+
+    def ticker_24hr(self, symbol=None):
+        try:
+            if symbol is None:
+                return self.public.ticker_24hr()
+            else:
+                return self.public.ticker_24hr(symbol=symbol)
+        except Exception as e:
+            return _handle_exception(e)
