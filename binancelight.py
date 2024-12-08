@@ -20,11 +20,14 @@ class BinanceLight:
         self.private = Spot(api_key, api_secret)
         self.public = Spot()
 
-    def ticker_price(self, symbol):
+    def exchange_info(self, symbol):
         try:
-            ticker_price = self.public.ticker_price(symbol=symbol)
-            price = float(ticker_price['price'])
-            return price
+            if isinstance(symbol, str):
+                exchange_info = self.public.exchange_info(symbol=symbol)
+                return exchange_info
+            elif isinstance(symbol, list):
+                exchange_info = self.public.exchange_info(symbols=symbol)
+                return exchange_info
         except Exception as e:
             return _handle_exception(e)
 
@@ -36,11 +39,27 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def account(self):
+    def klines(self, symbol, interval, limit):
         try:
-            account = self.private.account(omitZeroBalances="true")
-            balances = account['balances']
-            return balances
+            klines = self.public.klines(symbol=symbol, interval=interval, limit=limit)
+            return klines
+        except Exception as e:
+            return _handle_exception(e)
+
+    def ticker_24hr(self, symbol=None):
+        try:
+            if symbol is None:
+                return self.public.ticker_24hr()
+            else:
+                return self.public.ticker_24hr(symbol=symbol)
+        except Exception as e:
+            return _handle_exception(e)
+
+    def ticker_price(self, symbol):
+        try:
+            ticker_price = self.public.ticker_price(symbol=symbol)
+            price = float(ticker_price['price'])
+            return price
         except Exception as e:
             return _handle_exception(e)
 
@@ -80,13 +99,6 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def get_open_orders(self, symbol):
-        try:
-            orders = self.private.get_open_orders(symbol=symbol)
-            return orders
-        except Exception as e:
-            return _handle_exception(e)
-
     def cancel_order(self, symbol, order_id):
         try:
             order = self.private.cancel_order(
@@ -104,14 +116,18 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def exchange_info(self, symbol):
+    def get_open_orders(self, symbol):
         try:
-            if isinstance(symbol, str):
-                exchange_info = self.public.exchange_info(symbol=symbol)
-                return exchange_info
-            elif isinstance(symbol, list):
-                exchange_info = self.public.exchange_info(symbols=symbol)
-                return exchange_info
+            orders = self.private.get_open_orders(symbol=symbol)
+            return orders
+        except Exception as e:
+            return _handle_exception(e)
+
+    def account(self):
+        try:
+            account = self.private.account(omitZeroBalances="true")
+            balances = account['balances']
+            return balances
         except Exception as e:
             return _handle_exception(e)
 
@@ -133,21 +149,5 @@ class BinanceLight:
         try:
             listen_key = self.private.renew_listen_key(listen_key)
             return listen_key
-        except Exception as e:
-            return _handle_exception(e)
-
-    def klines(self, symbol, interval, limit):
-        try:
-            klines = self.public.klines(symbol=symbol, interval=interval, limit=limit)
-            return klines
-        except Exception as e:
-            return _handle_exception(e)
-
-    def ticker_24hr(self, symbol=None):
-        try:
-            if symbol is None:
-                return self.public.ticker_24hr()
-            else:
-                return self.public.ticker_24hr(symbol=symbol)
         except Exception as e:
             return _handle_exception(e)
