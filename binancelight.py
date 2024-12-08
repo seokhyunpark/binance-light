@@ -16,11 +16,11 @@ def _handle_exception(e):
 
 
 class BinanceLight:
-    def __init__(self, api_key: str, api_secret: str):
+    def __init__(self, api_key, api_secret):
         self.private = Spot(api_key, api_secret)
         self.public = Spot()
 
-    def get_ticker_price(self, symbol: str):
+    def get_ticker_price(self, symbol):
         try:
             ticker_price = self.public.ticker_price(symbol=symbol)
             price = float(ticker_price['price'])
@@ -28,7 +28,7 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def get_orderbook(self, symbol: str, limit: int):
+    def get_orderbook(self, symbol, limit):
         try:
             depth = self.public.depth(symbol=symbol, limit=limit)
             orderbook = {'bids': depth['bids'], 'asks': depth['asks']}
@@ -44,7 +44,7 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def buy_limit_maker(self, symbol: str, quantity: float, price: float):
+    def buy_limit_maker(self, symbol, quantity, price):
         try:
             buy = self.private.new_order(
                 symbol=symbol,
@@ -57,7 +57,7 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def sell_limit_maker(self, symbol: str, quantity: float, price: float):
+    def sell_limit_maker(self, symbol, quantity, price):
         try:
             sell = self.private.new_order(
                 symbol=symbol,
@@ -70,7 +70,7 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def get_order(self, symbol: str, order_id: int):
+    def get_order(self, symbol, order_id):
         try:
             order = self.private.get_order(
                 symbol=symbol,
@@ -80,7 +80,7 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def cancel_order(self, symbol: str, order_id: int):
+    def cancel_order(self, symbol, order_id):
         try:
             order = self.private.cancel_order(
                 symbol=symbol,
@@ -90,14 +90,14 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def cancel_open_orders(self, symbol: str):
+    def cancel_open_orders(self, symbol):
         try:
             order = self.private.cancel_open_orders(symbol=symbol)
             return order
         except Exception as e:
             return _handle_exception(e)
 
-    def get_exchange_info(self, symbol: str):
+    def get_exchange_info(self, symbol):
         try:
             exchange_info = self.public.exchange_info(symbol=symbol)
             return exchange_info
@@ -118,14 +118,14 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
-    def renew_listen_key(self, listen_key: str):
+    def renew_listen_key(self, listen_key):
         try:
             listen_key = self.private.renew_listen_key(listen_key)
             return listen_key
         except Exception as e:
             return _handle_exception(e)
 
-    def get_klines(self, symbol: str, interval: str, limit: int):
+    def get_klines(self, symbol, interval, limit):
         try:
             klines = self.public.klines(symbol=symbol, interval=interval, limit=limit)
             return klines
