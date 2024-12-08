@@ -1,8 +1,8 @@
 from binance.spot import Spot
 from inspect import stack
-from logger import Logger
+from logger import get_logger
 
-logger = Logger("binance-light")
+log = get_logger("binancelight")
 
 
 def _handle_exception(e):
@@ -11,7 +11,7 @@ def _handle_exception(e):
     # print(f"error message: {e.error_message}")
     # print(f"header: {e.header}")
     # print(f"error data: {e.error_data}")
-    logger.error(f"({stack()[1].function}) {e.__class__.__name__}: {e}")
+    log.error(f"({stack()[1].function}) {e.__class__.__name__}: {e}")
     return None
 
 
