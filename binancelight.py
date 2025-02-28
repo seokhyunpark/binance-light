@@ -2,16 +2,16 @@ from binance.spot import Spot
 from inspect import stack
 from logger import get_logger
 
-log = get_logger("binancelight")
+log = get_logger('binancelight')
 
 
 def _handle_exception(e):
-    # print(f"status code: {e.status_code}")
-    # print(f"error code: {e.error_code}")
-    # print(f"error message: {e.error_message}")
-    # print(f"header: {e.header}")
-    # print(f"error data: {e.error_data}")
-    log.error(f"({stack()[1].function}) {e.__class__.__name__}: {e}")
+    # print(f'status code: {e.status_code}')
+    # print(f'error code: {e.error_code}')
+    # print(f'error message: {e.error_message}')
+    # print(f'header: {e.header}')
+    # print(f'error data: {e.error_data}')
+    log.error(f'({stack()[1].function}) {e.__class__.__name__}: {e}')
     return None
 
 
@@ -125,7 +125,7 @@ class BinanceLight:
 
     def account(self):
         try:
-            account = self.private.account(omitZeroBalances="true")
+            account = self.private.account(omitZeroBalances='true')
             balances = account['balances']
             return balances
         except Exception as e:
