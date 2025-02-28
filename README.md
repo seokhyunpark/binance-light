@@ -13,33 +13,33 @@ Usage examples:
 ```python
 import binancelight
 
-api_key = "YOUR_API_KEY"
-api_secret = "YOUR_API_SECRET"
+api_key = 'YOUR_API_KEY'
+api_secret = 'YOUR_API_SECRET'
 
 client = binancelight.BinanceLight(api_key, api_secret)
 
-price = client.ticker_price("BTCUSDT")
+price = client.ticker_price('BTCUSDT')
 print(price)
 
-orderbook = client.depth("BTCUSDT")
+orderbook = client.depth('BTCUSDT')
 print(orderbook['bids'])
 print(orderbook['asks'])
 
 balances = client.account()
 print(balances)
 
-buy = client.buy_limit_maker(symbol="BTCUSDT", quantity=1, price=60000)
+buy = client.buy_limit_maker(symbol='BTCUSDT', quantity=1, price=60000)
 print(buy)
 
-sell = client.sell_limit_maker(symbol="BTCUSDT", quantity=1, price=120000)
+sell = client.sell_limit_maker(symbol='BTCUSDT', quantity=1, price=120000)
 print(sell)
 
 order_id = buy['orderId']
-order = client.get_order(symbol="BTCUSDT", order_id=order_id)
+order = client.get_order(symbol='BTCUSDT', order_id=order_id)
 print(order)
 
 order_id = sell['orderId']
-cancel = client.cancel_order(symbol="BTCUSDT", order_id=order_id)
+cancel = client.cancel_order(symbol='BTCUSDT', order_id=order_id)
 print(cancel)
 ```
 
