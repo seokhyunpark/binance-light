@@ -131,6 +131,13 @@ class BinanceLight:
         except Exception as e:
             return _handle_exception(e)
 
+    def my_trades(self, symbol, limit):
+        try:
+            trades = self.private.my_trades(symbol=symbol, limit=limit)
+            return trades
+        except Exception as e:
+            return _handle_exception(e)
+
     def get_order_rate_limit(self):
         try:
             rate_limit = self.private.get_order_rate_limit()
